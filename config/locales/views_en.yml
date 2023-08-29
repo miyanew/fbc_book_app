@@ -1,10 +1,10 @@
 en:
-  views:
+  header:
     books: 'Books'
-    link:
-      back: 'Back to books'
-      new: 'New book'
-      show: 'Show this book'
-      edit: 'Edit this book'
-    button:
-      destroy: 'Destroy this book'
+  link:
+    back: 'Back to books'
+    new: 'New book'
+    show: 'Show this book'
+    edit: 'Edit this book'
+  button:
+    destroy: 'Destroy this book'
