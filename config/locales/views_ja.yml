@@ -1,0 +1,10 @@
+ja:
+  views:
+    books: '本の一覧'
+    link:
+      back: '本の一覧に戻る'
+      new: '本を登録'
+      show: 'この本を表示'
+      edit: 'この本を編集'
+    button:
+      destroy: 'この本を削除'
