@@ -2,12 +2,12 @@ en:
   header:
     books: 'Books'
   link:
-    back: 'Back to books'
-    new: 'New book'
-    show: 'Show this book'
-    edit: 'Edit this book'
+    books_back: 'Back to books'
+    book_new: 'New book'
+    book_show: 'Show this book'
+    book_edit: 'Edit this book'
   button:
-    destroy: 'Destroy this book'
+    book_destroy: 'Destroy this book'
   flash:
     book_was_successfully_created: 'Book was successfully created.'
     book_was_successfully_updated: 'Book was successfully updated.'
