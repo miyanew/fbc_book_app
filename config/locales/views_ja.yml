@@ -2,12 +2,12 @@ ja:
   header:
     books: '本の一覧'
   link:
-    book_back: '本の一覧に戻る'
+    books_back: '本の一覧に戻る'
     book_new: '本を登録'
     book_show: 'この本を表示'
     book_edit: 'この本を編集'
   button:
-    destroy: 'この本を削除'
+    book_destroy: 'この本を削除'
   flash:
     book_was_successfully_created: '本の登録に成功しました'
     book_was_successfully_updated: '本の編集に成功しました'
