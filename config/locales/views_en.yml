@@ -9,6 +9,6 @@ en:
   button:
     book_destroy: 'Destroy this book'
   flash:
-    book_was_successfully_created: 'Book was successfully created.'
-    book_was_successfully_updated: 'Book was successfully updated.'
-    book_was_successfully_destroyed: 'Book was successfully destroyed.'
+    created_message: '%{target} was successfully created.'
+    updated_message: '%{target} was successfully updated.'
+    destroyed_message: '%{target} was successfully destroyed.'

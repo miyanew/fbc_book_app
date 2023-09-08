@@ -27,7 +27,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to book_url(@book), notice: I18n.t('flash.book_was_successfully_created') }
+        format.html { redirect_to book_url(@book), notice: I18n.t('flash.created_message', target: Book.model_name.human) }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to book_url(@book), notice: I18n.t('flash.book_was_successfully_updated') }
+        format.html { redirect_to book_url(@book), notice: I18n.t('flash.updated_message', target: Book.model_name.human) }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class BooksController < ApplicationController
     @book.destroy
 
     respond_to do |format|
-      format.html { redirect_to books_url, notice: I18n.t('flash.book_was_successfully_destroyed') }
+      format.html { redirect_to books_url, notice: I18n.t('flash.destroyed_message', target: Book.model_name.human) }
       format.json { head :no_content }
     end
   end

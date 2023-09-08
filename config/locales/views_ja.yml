@@ -9,6 +9,6 @@ ja:
   button:
     book_destroy: 'この本を削除'
   flash:
-    book_was_successfully_created: '本の登録に成功しました'
-    book_was_successfully_updated: '本の編集に成功しました'
-    book_was_successfully_destroyed: '本の削除に成功しました'
+    created_message: '%{target}の登録に成功しました'
+    updated_message: '%{target}の編集に成功しました'
+    destroyed_message: '%{target}の削除に成功しました'
