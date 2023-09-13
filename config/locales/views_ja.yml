@@ -1,0 +1,14 @@
+ja:
+  header:
+    books: '本の一覧'
+  link:
+    books_back: '本の一覧に戻る'
+    book_new: '本を登録'
+    book_show: 'この本を表示'
+    book_edit: 'この本を編集'
+  button:
+    book_destroy: 'この本を削除'
+  flash:
+    created_message: '%{target}の登録に成功しました'
+    updated_message: '%{target}の編集に成功しました'
+    destroyed_message: '%{target}の削除に成功しました'

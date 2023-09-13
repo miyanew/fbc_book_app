@@ -1,0 +1,14 @@
+en:
+  header:
+    books: 'Books'
+  link:
+    books_back: 'Back to books'
+    book_new: 'New book'
+    book_show: 'Show this book'
+    book_edit: 'Edit this book'
+  button:
+    book_destroy: 'Destroy this book'
+  flash:
+    created_message: '%{target} was successfully created.'
+    updated_message: '%{target} was successfully updated.'
+    destroyed_message: '%{target} was successfully destroyed.'
