@@ -5,6 +5,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   before_action :authenticate_user!
 
+  # GET /resource
+  def index
+    @users = User.order(:id).page(params[:page])
+  end
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -12,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource
   def show
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
   end
 
   # POST /resource
@@ -58,8 +63,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    super(resource)
-    users_path(id: current_user.id)
+    # super(resource)
+    books_path
   end
 
   # The path used after sign up for inactive accounts.
