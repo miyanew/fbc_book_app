@@ -7,4 +7,6 @@
 <p><strong>自己紹介:</strong></p>
 <p><%= @user.bio %></p>
 
-<p><%= link_to '編集', edit_user_registration_path %></p>
+<% if @user == current_user %>
+  <p><%= link_to '編集', edit_user_registration_path %></p>
+<% end %>

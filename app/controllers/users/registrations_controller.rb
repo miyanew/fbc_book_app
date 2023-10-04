@@ -3,10 +3,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   # GET /resource
   def index
+    redirect_to new_user_session_path if user_session.nil?
     @users = User.order(:id).page(params[:page])
   end
 
@@ -17,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource
   def show
+    redirect_to new_user_session_path if user_session.nil?
     @user = User.find(params[:id])
   end
 
@@ -63,7 +65,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    # super(resource)
     books_path
   end
 
@@ -71,4 +72,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def after_update_path_for(resource)
+    user_profile_path(resource)
+  end
 end
