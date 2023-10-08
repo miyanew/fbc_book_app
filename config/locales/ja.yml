@@ -192,8 +192,14 @@ ja:
       title_index: "%{name}の一覧"
       title_new: "%{name}の新規作成"
       title_edit: "%{name}の編集"
+      title_show: "%{name}の表示"
       error: エラー
       validation_error: "%{errors}があるため、この%{name}は保存できませんでした"
+      log_in: "ログイン"
+      log_out: "ログアウト"
+      sign_up: "ユーザ登録"
+      reset_password: "パスワード再設定"
+      change_password: "パスワード変更"
     pagination:
       first: '« 最初'
       last: '最後 »'

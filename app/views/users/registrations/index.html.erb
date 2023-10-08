@@ -1,25 +1,25 @@
-<h2>Index <%= resource_name.to_s.humanize %></h2>
+<h2><%= t('views.common.title_index', name: t('activerecord.models.user')) %></h2>
 
 <div id="books" class="index-items">
   <% @users.each do |user| %>
     <div class="index-item">
       <p>
-        <strong><%= 'email' %>:</strong>
+        <strong><%= t('activerecord.attributes.user.email') %>:</strong>
         <%= user.email %>
       </p>
 
       <p>
-        <strong><%= 'address' %>:</strong>
+        <strong><%= t('activerecord.attributes.user.address') %>:</strong>
         <%= user.address %>
       </p>
 
       <p>
-        <strong><%= 'postal_code' %>:</strong>
+        <strong><%= t('activerecord.attributes.user.postal_code') %>:</strong>
         <%= user.postal_code %>
       </p>
 
       <p>
-        <%= link_to 'このユーザを表示する', user_profile_path(user) %>
+        <%= link_to t('views.common.show', name: t('activerecord.models.user')), user_profile_path(user) %>
       </p>
     </div>
   <% end %>
