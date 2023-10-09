@@ -5,11 +5,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
-
-  devise_scope :user do
-    get 'users', to: 'users/registrations#index'
-    get 'users/:id', to: 'users/registrations#show', as: 'user_profile'
-  end
+  
+  get 'users', to: 'users#index'
+  get 'users/:id', to: 'users#show', as: 'user_profile'
 
   resources :books
 
