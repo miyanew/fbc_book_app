@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body class="<%= params[:action] %>">
+    <% if user_signed_in? %>
+        <%= link_to t('views.common.title_index', name: t('activerecord.models.book')), books_path %>
+        <%= link_to t('views.common.title_index', name: t('activerecord.models.user')), users_path %>
+        <%= link_to t('views.common.show', name: current_user.email), user_profile_path(current_user) %>
+        <%= link_to t('views.common.log_out'), destroy_user_session_path,data: { turbo_method: :delete } %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
