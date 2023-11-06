@@ -16,7 +16,7 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test 'should return the date when the report was created' do
-    report = Report.create(created_at: Time.zone.local(2023, 10, 14, 12, 0, 0))
-    assert_equal Date.new(2023, 10, 14), report.created_on
+    report = Report.create(created_at: '2023-10-14 12:00:00'.in_time_zone)
+    assert_equal '2023-10-14'.to_date, report.created_on
   end
 end
