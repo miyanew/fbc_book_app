@@ -4,8 +4,3 @@ one:
   title: MyString
   content: MyText
   user: alice
-
-# two:
-#   user: two
-#   title: MyString
-#   content: MyText
