@@ -4,16 +4,15 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   test 'should be editable by the creator' do
-    user = User.create(email: 'foo@example.com')
-    report = Report.create(user:)
-    assert report.editable?(user)
+    alice = users(:alice)
+    alice_report = alice.reports.create!(title: 'title', content: 'content')
+    assert alice_report.editable?(alice)
   end
 
   test 'should not be editable when the user is not the creator' do
-    creator = User.create(email: 'foo@example.com')
-    other_user = User.create(email: 'goo@example.com')
-    report = Report.create(user: creator)
-    assert_not report.editable?(other_user)
+    alice_report = reports(:alice_report)
+    bob = users(:bob)
+    assert_not alice_report.editable?(bob)
   end
 
   test 'should return the date when the report was created' do
