@@ -20,4 +20,6 @@ ja:
     errors:
       models:
         user:
-          invalid_type: 'JPEG PNG GIF のファイルを選んでください'
+          attributes:
+            avatar:
+              invalid_type: JPEG PNG GIF のファイルを選んでください
