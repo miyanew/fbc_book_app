@@ -16,3 +16,8 @@ ja:
         address: 住所
         self_introduction: 自己紹介文
         avatar: アイコン
+
+    errors:
+      models:
+        user:
+          invalid_type: 'JPEG PNG GIF のファイルを選んでください'
