@@ -15,7 +15,6 @@
   <%= render 'devise/registrations/profile_fields', f: f %>
 
   <div class="field">
-    <%= f.label :avatar %>
     <% if resource.avatar.representable? %>
       <%= image_tag resource.avatar.variant(:thumb) %>
     <% end %>
