@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @commentable.comments.create(comment_params)
-    redirect_to [@commentable, @comment]
+    redirect_to polymorphic_url(@commentable)
   end
   
   private
