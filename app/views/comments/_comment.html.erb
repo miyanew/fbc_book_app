@@ -3,5 +3,7 @@
     <strong>></strong>
     <%= comment.body %>
   </p>
-
+  <p>
+    <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), [@commentable, comment], method: :delete %>
+  </p>
 </div>

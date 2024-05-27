@@ -1,8 +1,14 @@
 class CommentsController < ApplicationController
-  before_action :set_commentable, only: [:create]
+  before_action :set_commentable, only: [:create, :destroy]
 
   def create
     @comment = @commentable.comments.create(comment_params)
+    redirect_to polymorphic_url(@commentable)
+  end
+
+  def destroy
+    @comment = @commentable.comments.find(params[:id])
+    @comment.destroy
     redirect_to polymorphic_url(@commentable)
   end
   
