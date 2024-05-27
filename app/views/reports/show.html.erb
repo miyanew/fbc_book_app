@@ -12,14 +12,5 @@
 </nav>
 
 <h2><%= Comment.model_name.human %></h2>
-<%= render @report.comments %>
-
-<h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %>:</h2>
-<%= form_with model: [ @report, @report.comments.build ] do |form| %>
-  <p>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render @commentable.comments %>
+<%= render "comments/form", commentable: @commentable %>
