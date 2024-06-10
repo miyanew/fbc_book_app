@@ -61,6 +61,6 @@ class ReportsController < ApplicationController
 
   def correct_user
     @report = current_user.reports.find_by(id: params[:id])
-    redirect_to reports_path, notice: "権限がありません" if @report.nil?
+    redirect_to reports_path, notice: I18n.t('errors.messages.no_permission') if @report.nil?
   end
 end

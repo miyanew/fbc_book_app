@@ -34,6 +34,6 @@ class CommentsController < ApplicationController
 
   def correct_user
     @comment = current_user.comments.find_by(id: params[:id])
-    redirect_to polymorphic_url(@commentable), notice: "権限がありません" if @comment.nil?
+    redirect_to polymorphic_url(@commentable), notice: I18n.t('errors.messages.no_permission') if @comment.nil?
   end
 end

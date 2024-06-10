@@ -12,6 +12,6 @@ class User < ApplicationRecord
   end
 
   def display_name
-    name.presence || email || '未登録ユーザ'
+    name.presence || email || t('activerecord.attributes.user.unregistered_name')
   end
 end
