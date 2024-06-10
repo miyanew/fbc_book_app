@@ -1,9 +1,14 @@
 class CommentsController < ApplicationController
   before_action :set_commentable, only: [:create, :destroy]
+  before_action :correct_user, only: %i[destroy]
 
   def create
-    @comment = @commentable.comments.create(comment_params)
-    redirect_to polymorphic_url(@commentable)
+    @comment = current_user.comments.build(comment_params)
+    @comment.commentable = @commentable
+
+    if @comment.save
+      redirect_to polymorphic_url(@commentable)
+    end
   end
 
   def destroy
@@ -19,7 +24,6 @@ class CommentsController < ApplicationController
 
     def set_commentable
       resource, id = request.path.split('/')[1,2]
-
       case resource
       when 'reports'
         @commentable = Report.find(id)
@@ -27,4 +31,9 @@ class CommentsController < ApplicationController
         @commentable = Book.find(id)
       end
     end
+
+  def correct_user
+    @comment = current_user.comments.find_by(id: params[:id])
+    redirect_to polymorphic_url(@commentable), notice: "権限がありません" if @comment.nil?
   end
+end
