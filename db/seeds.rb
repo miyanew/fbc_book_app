@@ -75,7 +75,6 @@ User.order(:id).each.with_index(1) do |user, n|
   user.avatar.attach(io: File.open(image_path), filename: 'avatar.png')
 end
 
-
 Report.destroy_all
 
 50.times do
