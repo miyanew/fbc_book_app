@@ -1,6 +1,6 @@
 <div id="<%= dom_id comment %>">
   <p>
-    <strong>></strong>
+    <strong>> <%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %> <%= comment.user.present? ? comment.user.display_name : '未登録ユーザ' %></strong><br>
     <%= comment.body %>
   </p>
   <p>
