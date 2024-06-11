@@ -80,7 +80,8 @@ Report.destroy_all
 50.times do
   Report.create!(
     title: Faker::Lorem.sentence,
-    body: Faker::Lorem.paragraph
+    body: Faker::Lorem.paragraph,
+    user_id: rand(1..50)
   )
 end
 
