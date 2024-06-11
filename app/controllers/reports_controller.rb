@@ -8,19 +8,17 @@ class ReportsController < ApplicationController
     @reports = Report.order(:id).page(params[:page])
   end
 
-  def show
-    @commentable = Report.find(params[:id])
-  end
+  def show; end
 
   def new
-    @report = Report.new
+    @commentable = Report.new
   end
 
   def create
-    @report = current_user.reports.build(report_params)
+    @commentable = current_user.reports.build(report_params)
 
-    if @report.save
-      redirect_to @report
+    if @commentable.save
+      redirect_to @commentable
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,18 +28,18 @@ class ReportsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @report.update(report_params)
-        format.html { redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human) }
-        format.json { render :show, status: :ok, location: @report }
+      if @commentable.update(report_params)
+        format.html { redirect_to report_url(@commentable), notice: t('controllers.common.notice_update', name: Report.model_name.human) }
+        format.json { render :show, status: :ok, location: @commentable }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.json { render json: @commentable.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @report.destroy
+    @commentable.destroy
 
     respond_to do |format|
       format.html { redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human) }
@@ -52,7 +50,7 @@ class ReportsController < ApplicationController
   private
 
   def set_report
-    @report = Report.find(params[:id])
+    @commentable = Report.includes(comments: :user).find(params[:id])
   end
 
   def report_params
@@ -60,7 +58,7 @@ class ReportsController < ApplicationController
   end
 
   def correct_user
-    @report = current_user.reports.find_by(id: params[:id])
-    redirect_to reports_path, notice: I18n.t('errors.messages.no_permission') if @report.nil?
+    @commentable = current_user.reports.find_by(id: params[:id])
+    redirect_to reports_path, notice: I18n.t('errors.messages.no_permission') if @commentable.nil?
   end
 end
