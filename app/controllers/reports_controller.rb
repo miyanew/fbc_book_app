@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[show edit update destroy]
+  include CommentableConcerns
+  before_action :set_commentable, only: %i[show edit update destroy]
   before_action :correct_user, only: %i[edit update]
 
   def index
@@ -14,6 +15,8 @@ class ReportsController < ApplicationController
     @commentable = Report.new
   end
 
+  def edit; end
+
   def create
     @commentable = current_user.reports.build(report_params)
 
@@ -23,8 +26,6 @@ class ReportsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  def edit; end
 
   def update
     respond_to do |format|
@@ -48,10 +49,6 @@ class ReportsController < ApplicationController
   end
 
   private
-
-  def set_report
-    @commentable = Report.includes(comments: :user).find(params[:id])
-  end
 
   def report_params
     params.require(:report).permit(:title, :body)
