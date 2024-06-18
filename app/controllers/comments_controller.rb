@@ -25,16 +25,6 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-  def set_commentable
-    resource, id = request.path.split('/')[1, 2]
-    case resource
-    when 'reports'
-      @commentable = Report.find(id)
-    when 'books'
-      @commentable = Book.find(id)
-    end
-  end
-
   def correct_user
     @comment = current_user.comments.find_by(id: params[:id])
     redirect_to @commentable, notice: I18n.t('errors.messages.no_permission') if @comment.nil?
