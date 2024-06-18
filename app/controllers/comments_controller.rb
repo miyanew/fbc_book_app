@@ -10,13 +10,13 @@ class CommentsController < ApplicationController
 
     return unless @comment.save
 
-    redirect_to polymorphic_url(@commentable)
+    redirect_to @commentable
   end
 
   def destroy
     @comment = @commentable.comments.find(params[:id])
     @comment.destroy
-    redirect_to polymorphic_url(@commentable)
+    redirect_to @commentable
   end
 
   private
@@ -37,6 +37,6 @@ class CommentsController < ApplicationController
 
   def correct_user
     @comment = current_user.comments.find_by(id: params[:id])
-    redirect_to polymorphic_url(@commentable), notice: I18n.t('errors.messages.no_permission') if @comment.nil?
+    redirect_to @commentable, notice: I18n.t('errors.messages.no_permission') if @comment.nil?
   end
 end
