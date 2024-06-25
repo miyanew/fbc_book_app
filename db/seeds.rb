@@ -77,11 +77,13 @@ end
 
 Report.destroy_all
 
+users = User.all.to_a
+
 50.times do
   Report.create!(
     title: Faker::Lorem.sentence,
     body: Faker::Lorem.paragraph,
-    user_id: rand(1..50)
+    user: users.sample
   )
 end
 
