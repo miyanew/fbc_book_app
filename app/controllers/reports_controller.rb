@@ -2,7 +2,6 @@
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
-  before_action :correct_user, only: %i[edit update]
 
   def index
     @reports = Report.order(:id).page(params[:page])
@@ -55,10 +54,5 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:title, :body)
-  end
-
-  def correct_user
-    @report = current_user.reports.find_by(id: params[:id])
-    redirect_to reports_path, notice: I18n.t('errors.messages.no_permission') if @report.nil?
   end
 end
