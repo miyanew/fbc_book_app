@@ -61,6 +61,7 @@ class BooksController < ApplicationController
 
   def set_book
     @book = Book.includes(comments: :user).find(params[:id])
+    @book.comments = @book.comments.order(:created_at, :id)
   end
 
   # Only allow a list of trusted parameters through.
