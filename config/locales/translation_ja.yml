@@ -18,7 +18,6 @@ ja:
         address: 住所
         self_introduction: 自己紹介文
         avatar: ユーザ画像
-        unregistered_name: 未登録ユーザ
       report:
         title: タイトル
         body: 本文
