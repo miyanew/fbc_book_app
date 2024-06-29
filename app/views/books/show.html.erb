@@ -12,5 +12,5 @@
 </nav>
 
 <h2><%= Comment.model_name.human %></h2>
-<%= render @book.comments, commentable: @book %>
+<%= render @book.comments.order(:created_at, :id) %>
 <%= render "comments/form", commentable: @book %>

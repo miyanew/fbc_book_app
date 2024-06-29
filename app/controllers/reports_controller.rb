@@ -41,8 +41,7 @@ class ReportsController < ApplicationController
   private
 
   def set_report
-    @report = Report.includes(comments: :user).find(params[:id])
-    @report.comments = @report.comments.order(:created_at, :id)
+    @report = Report.find(params[:id])
   end
 
   def report_params
