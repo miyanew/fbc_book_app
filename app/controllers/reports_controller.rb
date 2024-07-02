@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  before_action :set_report, only: %i[edit update]
+
   def index
     @reports = Report.order(:id).page(params[:page])
   end
@@ -13,10 +15,7 @@ class ReportsController < ApplicationController
     @report = Report.new
   end
 
-  def edit
-    @report = current_user.reports.find_by(id: params[:id])
-    head :not_found unless @report
-  end
+  def edit; end
 
   def create
     @report = current_user.reports.build(report_params)
@@ -29,8 +28,6 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @report = current_user.reports.find(params[:id])
-
     if @report.update(report_params)
       redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else
@@ -45,6 +42,12 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def set_report
+    @report = current_user.reports.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
 
   def report_params
     params.require(:report).permit(:title, :body)
