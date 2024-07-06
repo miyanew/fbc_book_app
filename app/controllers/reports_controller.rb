@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[edit update]
+  before_action :set_report, only: %i[edit update destroy]
 
   def index
     @reports = Report.order(:id).page(params[:page])
@@ -36,8 +36,8 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    report = current_user.reports.find(params[:id])
-    report.destroy
+    @report = current_user.reports.find(params[:id])
+    @report.destroy
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
   end
 
@@ -45,8 +45,6 @@ class ReportsController < ApplicationController
 
   def set_report
     @report = current_user.reports.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   def report_params
