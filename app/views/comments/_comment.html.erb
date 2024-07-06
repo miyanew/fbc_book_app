@@ -1,6 +1,6 @@
 <div id="<%= dom_id comment %>">
   <p>
-    <strong>&gt;<%= l comment.created_at, format: :default %> <%= comment.user&.display_name || t('views.common.deleted_user_name') %></strong><br>
+    <strong>&gt;<%= l comment.created_at %> <%= comment.user&.display_name || t('views.common.deleted_user_name') %></strong><br>
     <%= comment.body %>
   </p>
   <p>
