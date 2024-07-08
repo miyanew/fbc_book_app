@@ -1,0 +1,11 @@
+<div id="<%= dom_id comment %>">
+  <p>
+    <strong>&gt;<%= l comment.created_at %> <%= comment.user&.display_name || t('views.common.deleted_user_name') %></strong><br>
+    <%= comment.body %>
+  </p>
+  <p>
+    <% if current_user == comment.user %>
+      <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), [comment.commentable, comment], method: :delete %>
+    <% end %>
+  </p>
+</div>

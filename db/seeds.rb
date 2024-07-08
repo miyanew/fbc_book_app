@@ -75,4 +75,16 @@ User.order(:id).each.with_index(1) do |user, n|
   user.avatar.attach(io: File.open(image_path), filename: 'avatar.png')
 end
 
+Report.destroy_all
+
+users = User.all.to_a
+
+50.times do
+  Report.create!(
+    title: Faker::Lorem.sentence,
+    body: Faker::Lorem.paragraph,
+    user: users.sample
+  )
+end
+
 puts '初期データの投入が完了しました。' # rubocop:disable Rails/Output
