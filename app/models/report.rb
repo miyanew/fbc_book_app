@@ -15,6 +15,7 @@ class Report < ApplicationRecord
 
   after_create :create_report_mentions
   before_destroy :destroy_related_report_mentions
+  after_update :update_report_mentions
 
   def editable?(target_user)
     user == target_user
@@ -46,5 +47,10 @@ class Report < ApplicationRecord
 
   def destroy_related_report_mentions
     ReportMention.where(mentioning_report_id: id).or(ReportMention.where(mentioned_report_id: id)).destroy_all
+  end
+
+  def update_report_mentions
+    ReportMention.where(mentioned_report_id: id).destroy_all
+    create_report_mentions
   end
 end
