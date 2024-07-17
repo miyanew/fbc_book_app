@@ -4,6 +4,16 @@
   <%= render @report %>
 </div>
 
+<% if @report.mentioned_report_ids.any? %>
+  <p><strong><%= t('views.common.mentioned_report') %></strong></p>
+  <% @report.mentioned_report_ids.each do |mentioned_id| %>
+    <% mentioned_report = Report.find(mentioned_id) %>
+    <p>
+      <%= link_to mentioned_report.title, report_path(mentioned_report) %>
+    </p>
+  <% end %>
+<% end %>
+
 <%= render 'shared/comments', commentable: @report %>
 
 <nav class="page-nav">
