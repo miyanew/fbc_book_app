@@ -14,6 +14,7 @@ class Report < ApplicationRecord
   validates :content, presence: true
 
   after_create :create_report_mentions
+  before_destroy :destroy_related_report_mentions
 
   def editable?(target_user)
     user == target_user
@@ -41,5 +42,9 @@ class Report < ApplicationRecord
     extracted_ids = regex_patterns.flat_map {|pattern|content.scan(pattern)}
     mentioning_ids = extracted_ids.flatten.map(&:to_i).uniq - [id]
     Report.where(id: mentioning_ids).pluck(:id)
+  end
+
+  def destroy_related_report_mentions
+    ReportMention.where(mentioning_report_id: id).or(ReportMention.where(mentioned_report_id: id)).destroy_all
   end
 end
