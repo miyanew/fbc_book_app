@@ -30,7 +30,7 @@ class Report < ApplicationRecord
   def create_report_mentions
     mentioning_report_ids = extract_mentioning_report_ids
     mentioning_report_ids.each do | mentioning_id|
-      ReportMention.create(
+      ReportMention.create!(
         mentioning_report_id: mentioning_id,
         mentioned_report_id: self.id
       )
