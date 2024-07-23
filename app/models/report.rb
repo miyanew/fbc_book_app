@@ -40,8 +40,8 @@ class Report < ApplicationRecord
     detected_domain_ports = ['127.0.0.1:3000', 'localhost:3000']
     regex_patterns = detected_domain_ports.map { |domain_port| %r{http://#{domain_port}/reports/(\d+)} }
     extracted_ids = regex_patterns.flat_map { |pattern| content.scan(pattern) }
-    mentioning_ids = extracted_ids.flatten.map(&:to_i).uniq - [id]
-    Report.where(id: mentioning_ids).pluck(:id)
+    mentioning_ids = extracted_ids.flatten.map(&:to_i).uniq
+    Report.where(id: mentioning_ids).where.not(id: id).pluck(:id)
   end
 
   def update_report_mentions
