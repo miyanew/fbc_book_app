@@ -6,7 +6,7 @@
 
 <% if @report.mentioned_report_ids.any? %>
   <p><strong><%= t('views.common.mentioned_report') %></strong></p>
-  <% Report.where(id: @report.mentioned_report_ids).order(:created_at, :id).each do |mentioned_report| %>
+  <% @report.mentioned_reports.order(:id).each do |mentioned_report| %>
     <p>
       <%= link_to mentioned_report.title, report_path(mentioned_report) %>
     </p>
