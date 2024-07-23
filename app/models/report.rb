@@ -13,8 +13,8 @@ class Report < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
-  after_create :create_report_mentions
-  after_update :update_report_mentions
+  after_create :refresh_report_mentions
+  after_update :refresh_report_mentions
 
   def editable?(target_user)
     user == target_user
@@ -26,7 +26,8 @@ class Report < ApplicationRecord
 
   private
 
-  def create_report_mentions
+  def refresh_report_mentions
+    ReportMention.where(mentioned_report_id: id).destroy_all
     mentioning_report_ids = extract_mentioning_report_ids
     mentioning_report_ids.each do |mentioning_id|
       ReportMention.create!(
@@ -42,10 +43,5 @@ class Report < ApplicationRecord
     extracted_ids = regex_patterns.flat_map { |pattern| content.scan(pattern) }
     mentioning_ids = extracted_ids.flatten.map(&:to_i).uniq
     Report.where(id: mentioning_ids).where.not(id: id).pluck(:id)
-  end
-
-  def update_report_mentions
-    ReportMention.where(mentioned_report_id: id).destroy_all
-    create_report_mentions
   end
 end
