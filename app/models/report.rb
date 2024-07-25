@@ -4,11 +4,11 @@ class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :mentioning_report_mentions, class_name: 'ReportMention', foreign_key: 'mentioning_report_id', dependent: :destroy, inverse_of: :mentioning_report
-  has_many :mentioned_report_mentions, class_name: 'ReportMention', foreign_key: 'mentioned_report_id', dependent: :destroy, inverse_of: :mentioned_report
+  has_many :received_mentions, class_name: 'ReportMention', foreign_key: 'mentioning_report_id', dependent: :destroy, inverse_of: :mentioning_report
+  has_many :sent_mentions, class_name: 'ReportMention', foreign_key: 'mentioned_report_id', dependent: :destroy, inverse_of: :mentioned_report
 
-  has_many :mentioning_reports, through: :mentioned_report_mentions, source: :mentioning_report
-  has_many :mentioned_reports, through: :mentioning_report_mentions, source: :mentioned_report
+  has_many :mentioning_reports, through: :sent_mentions, source: :mentioning_report
+  has_many :mentioned_reports, through: :received_mentions, source: :mentioned_report
 
   validates :title, presence: true
   validates :content, presence: true
@@ -26,13 +26,10 @@ class Report < ApplicationRecord
   private
 
   def refresh_report_mentions
-    ReportMention.where(mentioned_report_id: id).destroy_all
+    mentioning_reports.destroy_all
     mentioning_report_ids = extract_mentioning_report_ids
     mentioning_report_ids.each do |mentioning_id|
-      ReportMention.create!(
-        mentioning_report_id: mentioning_id,
-        mentioned_report_id: id
-      )
+      sent_mentions.create!(mentioning_report_id: mentioning_id)
     end
   end
 
