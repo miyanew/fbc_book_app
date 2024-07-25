@@ -41,6 +41,6 @@ class Report < ApplicationRecord
     regex_patterns = detected_domain_ports.map { |domain_port| %r{http://#{domain_port}/reports/(\d+)} }
     extracted_ids = regex_patterns.flat_map { |pattern| content.scan(pattern) }
     mentioning_ids = extracted_ids.flatten.map(&:to_i).uniq
-    Report.where(id: mentioning_ids).where.not(id: id).pluck(:id)
+    Report.where(id: mentioning_ids).where.not(id:).pluck(:id)
   end
 end
