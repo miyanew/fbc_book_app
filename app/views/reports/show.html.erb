@@ -4,11 +4,11 @@
   <%= render @report %>
 </div>
 
-<% if @report.mentioned_report_ids.any? %>
-  <p><strong><%= t('views.common.mentioned_report') %></strong></p>
-  <% @report.mentioned_reports.order(:id).each do |mentioned_report| %>
+<% if @report.mentioning_report_ids.any? %>
+  <p><strong><%= t('views.common.mentioning_report') %></strong></p>
+  <% @report.mentioning_reports.order(:id).each do |mentioning_report| %>
     <p>
-      <%= link_to mentioned_report.title, report_path(mentioned_report) %>
+      <%= link_to mentioning_report.title, report_path(mentioning_report) %>
     </p>
   <% end %>
 <% end %>
