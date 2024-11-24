@@ -5,14 +5,14 @@ class Report < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
 
   # 自分が他の日報に対して行った言及
-  has_many :mentioning_report_mentions,
+  has_many :outgoing_mentions,
            class_name: 'ReportMention',
            foreign_key: 'mentioning_report_id',
            dependent: :destroy,
            inverse_of: :mentioning_report
 
   # 他の日報から受けた言及
-  has_many :mentioned_report_mentions,
+  has_many :incoming_mentions,
            class_name: 'ReportMention',
            foreign_key: 'mentioned_report_id',
            dependent: :destroy,
@@ -20,13 +20,13 @@ class Report < ApplicationRecord
 
   # 自分が言及している日報一覧
   has_many :mentioning_reports,
-           through: :mentioned_report_mentions,
-           source: :mentioning_report
+           through: :outgoing_mentions,
+           source: :mentioned_report
 
   # 自分を言及している日報一覧
   has_many :mentioned_reports,
-           through: :mentioning_report_mentions,
-           source: :mentioned_report
+           through: :incoming_mentions,
+           source: :mentioning_report
 
   validates :title, presence: true
   validates :content, presence: true
@@ -44,10 +44,10 @@ class Report < ApplicationRecord
   private
 
   def refresh_report_mentions
-    mentioned_reports.destroy_all
+    mentioning_reports.destroy_all
     mentioned_report_ids = extract_mentioned_report_ids
-    mentioned_report_ids.each do |mentioned_id|
-      mentioning_report_mentions.create!(mentioned_report_id: mentioned_id)
+    mentioned_report_ids.each do |mentioned_report_id|
+      outgoing_mentions.create!(mentioned_report_id:)
     end
   end
 
